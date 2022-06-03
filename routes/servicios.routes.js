@@ -13,7 +13,7 @@ router.get("/servicios,", async (req, res, next) => {
 });
 
 //! POST "/api/servicios" => Crear servicios
-router.get("/servicios,", async (req, res, next) => {
+router.get("/,", async (req, res, next) => {
   const { img, nombre, breveDesc, descripcion, utilidades } = req.body;
   //Campos a rellenar al crear un servicio
   if (!img || !nombre || !breveDesc || !descripcion || !utilidades) {
@@ -36,7 +36,7 @@ router.get("/servicios,", async (req, res, next) => {
 
 //! GET "/api/servicios/:id" => Detalles del servicio.
 
-router.get("/servicios:id,", async (req, res, next) => {
+router.get("/:id,", async (req, res, next) => {
   const { id } = req.params;
   try {
     const response = await ServicioModel.findById(id);
@@ -47,7 +47,7 @@ router.get("/servicios:id,", async (req, res, next) => {
 });
 
 //! DEL "/api/servicios:id" => Elimina un servicio
-router.delete("/servicios:id,", async (req, res, next) => {
+router.delete("/:id,", async (req, res, next) => {
   const { id } = req.params;
   try {
     const response = await ServicioModel.findByIdAndDelete(id);
@@ -58,7 +58,7 @@ router.delete("/servicios:id,", async (req, res, next) => {
 });
 
 //! PATCH "/api/servicios/:id" => Editar los servicios
-router.patch("/servicios:id,", async (req, res, next) => {
+router.patch("/:id,", async (req, res, next) => {
   const { id } = req.params;
   const { img, nombre, breveDesc, descripcion, utilidades } = req.body;
   //Campos a rellenar al modificigar un servicio
