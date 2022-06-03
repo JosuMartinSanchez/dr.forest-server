@@ -3,7 +3,7 @@ const PresupuestoModel = require("../models/Presupuesto.model.js");
 
 //! GET "/api/presupuesto" => Lista todos los presupuestos disponibles
 
-router.get("/,", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const response = await PresupuestoModel.find().select("userId");
     res.json(response);
@@ -13,7 +13,7 @@ router.get("/,", async (req, res, next) => {
 });
 
 //! POST "/api/presupuesto" => Crear presupuesto
-router.get("/,", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   const {
     fecha,
     direction,
@@ -72,7 +72,7 @@ router.get("/,", async (req, res, next) => {
 
 //! GET "/api/presupuestos/:id" => Lista los detalles del presupuesto.
 
-router.get("/:id,", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
     const response = await PresupuestoModel.findById(id);
@@ -83,7 +83,7 @@ router.get("/:id,", async (req, res, next) => {
 });
 
 //! DEL "/api/presupuestos:id" => Elimina un presupuesto
-router.delete("/:id,", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
     const response = await PresupuestoModel.findByIdAndDelete(id);
@@ -94,7 +94,7 @@ router.delete("/:id,", async (req, res, next) => {
 });
 
 //! PATCH "/api/presupuestos/:id" => Editar el presupuesto
-router.patch("/:id,", async (req, res, next) => {
+router.patch("/:id", async (req, res, next) => {
   const { id } = req.params;
   const {
     fecha,
