@@ -52,6 +52,7 @@ const userSchema = new Schema(
 
       
     },
+
     rSocial: {
       type: String,
     },
