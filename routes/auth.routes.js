@@ -23,16 +23,15 @@ router.post("/signup", async (req, res, next) => {
     rSocial,
   } = req.body;
 
+  console.log(req.body);
+
   // todo=>------------------VALIDACIONES BACKEND-----------------
 
   // ! 1.) Todos los campos tienen que estar rellenados
   //Cliente
   if (
-    (userType === "cliente" && !email) ||
-    !password ||
-    !username ||
-    !cp ||
-    !userType
+    userType === "cliente" &&
+    (!email || !password || !username || !cp || !userType)
   ) {
     res.status(400).json({ errorMessage: "Los campos estan incompletos" });
 
@@ -40,19 +39,20 @@ router.post("/signup", async (req, res, next) => {
   }
   //profesional
   if (
-    (userType === "profesional" && !email) ||
-    !password ||
-    !username ||
-    !cp ||
-    !userType ||
-    !pais ||
-    !provincia ||
-    !poblacion ||
-    !calle ||
-    !numero ||
-    !piso ||
-    !cif ||
-    !rSocial
+    userType === "profesional" &&
+    (!email ||
+      !password ||
+      !username ||
+      !cp ||
+      !userType ||
+      !pais ||
+      !provincia ||
+      !poblacion ||
+      !calle ||
+      !numero ||
+      !piso ||
+      !cif ||
+      !rSocial)
   ) {
     res.status(400).json({ errorMessage: "Los campos estan incompletos" });
 
