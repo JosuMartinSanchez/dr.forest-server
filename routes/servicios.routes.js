@@ -5,7 +5,7 @@ const ServicioModel = require("../models/Servicios.model.js");
 
 router.get("/servicios,", async (req, res, next) => {
   try {
-    const response = await ServicioModel.find().select("title");
+    const response = await ServicioModel.find().select("nombre");
     res.json(response);
   } catch (error) {
     next(error);
@@ -34,7 +34,7 @@ router.get("/servicios,", async (req, res, next) => {
   }
 });
 
-//! GET "/api/servicios/:id" => Lista los detalles del servicios.
+//! GET "/api/servicios/:id" => Detalles del servicio.
 
 router.get("/servicios:id,", async (req, res, next) => {
   const { id } = req.params;
@@ -57,8 +57,8 @@ router.delete("/servicios:id,", async (req, res, next) => {
   }
 });
 
-//! PATCH "/api/servicios/:id" => Lista todos los servicios disponibles
-router.delete("/servicios:id,", async (req, res, next) => {
+//! PATCH "/api/servicios/:id" => Editar los servicios
+router.patch("/servicios:id,", async (req, res, next) => {
   const { id } = req.params;
   const { img, nombre, breveDesc, descripcion, utilidades } = req.body;
   //Campos a rellenar al modificigar un servicio

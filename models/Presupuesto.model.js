@@ -10,10 +10,6 @@ const presupuestoSchema = new Schema({
     type: String,
     required: true,
   },
-  utilidades: {
-    type: String,
-    required: true,
-  },
   pais: {
     type: String,
     required: true,
