@@ -10,8 +10,8 @@ router.use("/auth", authRoutes);
 
 //*--------------- Rutas servicios-------------------------
 
-// const serviciosRoutes = require("./sercicios.routes");
-// router.use("/servicios", serviciosRoutes);
+const serviciosRoutes = require("./sercicios.routes");
+router.use("/servicios", serviciosRoutes);
 
 //*--------------- Rutas presupuesto-------------------------
 

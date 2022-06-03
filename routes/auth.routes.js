@@ -25,7 +25,7 @@ router.post("/signup", async (req, res, next) => {
 
   // todo=>------------------VALIDACIONES BACKEND-----------------
 
-  //! 1.) Todos los campos tienen que estar rellenados
+  // ! 1.) Todos los campos tienen que estar rellenados
   //Cliente
   if (
     (userType === "cliente" && !email) ||
@@ -73,15 +73,15 @@ router.post("/signup", async (req, res, next) => {
   }
   //! 3.) Valida el formato de email
 
-  const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/.test(
-    email
-  );
+  // const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/.test(
+  //   email
+  // );
 
-  if (!emailValidator) {
-    res.status(400).json({
-      errorMessage: "La dirección de email " + email + " es incorrecta.",
-    });
-  }
+  // if (!emailValidator) {
+  //   res.status(400).json({
+  //     errorMessage: "La dirección de email " + email + " es incorrecta.",
+  //   });
+  // }
 
   //! 4.) Ningún usuario en nuestra BBDD tiene el mismo nombre de usuario o email.
 
@@ -125,15 +125,15 @@ router.post("/login", async (req, res, next) => {
   }
 
   //! 3.) Valida el formato de email
-  const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/.test(
-    email
-  );
+  // const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/.test(
+  //   email
+  // );
 
-  if (!emailValidator) {
-    res.status(400).json({
-      errorMessage: "La dirección de email " + email + " es incorrecta.",
-    });
-  }
+  // if (!emailValidator) {
+  //   res.status(400).json({
+  //     errorMessage: "La dirección de email " + email + " es incorrecta.",
+  //   });
+  // }
 
   //! 3.) Validar si el usuario existe en la BBDD
   try {
