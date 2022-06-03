@@ -27,8 +27,7 @@ const userSchema = new Schema(
       type: Number,
     },
     cp: {
-      type: Number,
-      required: true,
+      type: Number,      
     },
     pais: {
       type: String,
@@ -51,7 +50,7 @@ const userSchema = new Schema(
     cif: {
       type: String,
 
-      unique: true,
+      
     },
     rSocial: {
       type: String,
