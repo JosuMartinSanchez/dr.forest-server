@@ -15,7 +15,7 @@ router.use("/servicios", serviciosRoutes);
 
 //*--------------- Rutas presupuesto-------------------------
 
-// const presupuestoRoutes = require("./presupuesto.routes");
-// router.use("/presupuesto", presupuestoRoutes);
+const presupuestoRoutes = require("./presupuesto.routes");
+router.use("/presupuesto", presupuestoRoutes);
 
 module.exports = router;

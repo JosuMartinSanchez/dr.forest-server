@@ -3,11 +3,11 @@ const { Schema, model } = require("mongoose");
 const servicioSchema = new Schema({
   img: {
     type: String,
+    required: true,
   },
   nombre: {
     type: String,
     required: true,
-    unique: true,
   },
   breveDesc: {
     type: String,
