@@ -3,7 +3,7 @@ const PresupuestoModel = require("../models/Presupuesto.model.js");
 
 //! GET "/api/presupuesto" => Lista todos los presupuestos disponibles
 
-router.get("/presupuestos,", async (req, res, next) => {
+router.get("/presupuestos", async (req, res, next) => {
   try {
     const response = await PresupuestoModel.find().select("userId");
     res.json(response);
@@ -13,7 +13,7 @@ router.get("/presupuestos,", async (req, res, next) => {
 });
 
 //! POST "/api/presupuesto" => Crear presupuesto
-router.get("/presupuestos,", async (req, res, next) => {
+router.get("/presupuestos", async (req, res, next) => {
   
     const { fecha, direction, pais, provincia, poblacion, calle, numero, piso, observaciones, numEmpleados, metro2, precio, servicioId } = req.body;
   //Campos a rellenar al crear un presupuesto
@@ -45,7 +45,7 @@ router.get("/presupuestos,", async (req, res, next) => {
 
 //! GET "/api/presupuestos/:id" => Lista los detalles del presupuesto.
 
-router.get("/presupuestos:id,", async (req, res, next) => {
+router.get("/presupuestos:id", async (req, res, next) => {
   const { id } = req.params;
   try {
     const response = await PresupuestoModel.findById(id);
@@ -56,7 +56,7 @@ router.get("/presupuestos:id,", async (req, res, next) => {
 });
 
 //! DEL "/api/presupuestos:id" => Elimina un presupuesto
-router.delete("/presupuestos:id,", async (req, res, next) => {
+router.delete("/presupuestos:id", async (req, res, next) => {
   const { id } = req.params;
   try {
     const response = await PresupuestoModel.findByIdAndDelete(id);
@@ -67,7 +67,7 @@ router.delete("/presupuestos:id,", async (req, res, next) => {
 });
 
 //! PATCH "/api/presupuestos/:id" => Editar el presupuesto
-router.patch("/presupuestos:id,", async (req, res, next) => {
+router.patch("/presupuestos:id", async (req, res, next) => {
   const { id } = req.params;
   const { fecha, direction, pais, provincia, poblacion, calle, numero, piso, observaciones, numEmpleados, metro2, precio, servicioId } = req.body;
   //Campos a rellenar al modificar un presupuesto
