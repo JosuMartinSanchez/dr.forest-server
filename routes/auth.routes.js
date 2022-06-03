@@ -37,26 +37,28 @@ router.post("/signup", async (req, res, next) => {
 
     return;
   }
-  // //profesional
-  // if (
-  //   (userType === "profesional" && !email) ||
-  //   !password ||
-  //   !username ||
-  //   !cp ||
-  //   !userType ||
-  //   !pais ||
-  //   !provincia ||
-  //   !poblacion ||
-  //   !calle ||
-  //   !numero ||
-  //   !piso ||
-  //   !cif ||
-  //   !rSocial
-  // ) {
-  //   res.status(400).json({ errorMessage: "Los campos estan incompletos" });
+  console.log();
+  //profesional
+  if (
+    userType === "profesional" &&
+    (!email ||
+      !password ||
+      !username ||
+      !cp ||
+      !userType ||
+      !pais ||
+      !provincia ||
+      !poblacion ||
+      !calle ||
+      !numero ||
+      !piso ||
+      !cif ||
+      !rSocial)
+  ) {
+    res.status(400).json({ errorMessage: "Los campos estan incompletos" });
 
-  //   return;
-  // }
+    return;
+  }
   //! 2.) Requisitos del Password
 
   // el password debe incluir mínimo 8 caracteres, una letra minúscula, una letra mayúscula y un número.
@@ -123,7 +125,7 @@ router.post("/login", async (req, res, next) => {
     return;
   }
 
-  // //! 3.) Valida el formato de email
+  //! 3.) Valida el formato de email
   // const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/.test(
   //   email
   // );
@@ -180,6 +182,8 @@ router.post("/login", async (req, res, next) => {
         telf: foundUser.telf,
       };
     }
+
+    console.log();
 
     // si hubiesen propiedades de isAdmin o isVip se recomienda agregarlas para navegacion de FE
 
