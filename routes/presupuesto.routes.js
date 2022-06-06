@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const PresupuestoModel = require("../models/Presupuesto.model.js");
 const jwt = require("jsonwebtoken");
+const isAuthenticated = require("../middlewares/isAuthenticated.js");
 
 //! GET "/api/presupuestos" => Lista todos los presupuestos disponibles
 
@@ -14,7 +15,7 @@ router.get("/", async (req, res, next) => {
 });
 
 //! POST "/api/presupuesto" => Crear presupuestos
-router.post("/", async (req, res, next) => {
+router.post("/", isAuthenticated, async (req, res, next) => {
   const {
     fecha,
     direction,
@@ -28,7 +29,11 @@ router.post("/", async (req, res, next) => {
     numEmpleados,
     metro2,
     precio,
+    servicioId,
+    userId,
   } = req.body;
+
+  console.log(req.body);
   //Campos a rellenar al crear un presupuesto
   if (
     !fecha ||
@@ -41,10 +46,10 @@ router.post("/", async (req, res, next) => {
     !piso ||
     !observaciones ||
     !numEmpleados ||
-    !metro2 ||
-    !precio
+    !metro2
   ) {
     res.status(400).json("Todos los campos deben ser rellenados");
+    return;
   }
   try {
     const response = await PresupuestoModel.create({
@@ -60,8 +65,12 @@ router.post("/", async (req, res, next) => {
       numEmpleados,
       metro2,
       precio,
+      userId: req.payload._id,
+      servicioId,
     });
-    console.log(req.payload);
+
+    console.log(response);
+    console.log(req.payload._id);
 
     res.json(response);
   } catch (error) {
