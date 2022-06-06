@@ -1,9 +1,12 @@
-const isCliente = (req, res, next) => {
-    if (req.session.user.userType === "cliente") {
+const isCliente=()=>{
+    if (req.payload.userType === "cliente") {
         next()
-    } else {
-        res.redirect("/")
+    }else{
+        res.status(400).json("No eres un cliente");
     }
-}
 
-module.exports = isCliente
+
+
+
+}
+module.exports = isCliente;

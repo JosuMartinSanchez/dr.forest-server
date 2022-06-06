@@ -103,6 +103,17 @@ router.post("/signup", async (req, res, next) => {
       username,
       email,
       password: hashPassword,
+      username,
+      cp,
+      userType,
+      pais,
+      provincia,
+      poblacion,
+      calle,
+      numero,
+      piso,
+      cif,
+      rSocial,
     });
 
     res.json("Usuario creado");

@@ -5,9 +5,9 @@ const isAuthenticated = require("../middlewares/isAuthenticated.js");
 
 //! GET "/api/presupuesto" => Lista todos los presupuestos disponibles
 
-router.get("/", async (req, res, next) => {
+router.get("/", isAuthenticated, async (req, res, next) => {
   try {
-    const response = await PresupuestoModel.find().select("userId");
+    const response = await PresupuestoModel.findById(req.payload._id);
     res.json(response);
   } catch (error) {
     next(error);
@@ -18,7 +18,8 @@ router.get("/", async (req, res, next) => {
 router.post("/:id", isAuthenticated, async (req, res, next) => {
   const {id} = req.params
   const {
-    fecha,    
+    fecha,
+
     provincia,
     poblacion,
     calle,
@@ -36,7 +37,6 @@ router.post("/:id", isAuthenticated, async (req, res, next) => {
   //Campos a rellenar al crear un presupuesto
   if (
     !fecha ||
-    
     !provincia ||
     !poblacion ||
     !calle ||
@@ -51,7 +51,8 @@ router.post("/:id", isAuthenticated, async (req, res, next) => {
   }
   try {
     const response = await PresupuestoModel.create({
-      fecha,     
+      fecha,
+
       provincia,
       poblacion,
       calle,
@@ -103,7 +104,6 @@ router.patch("/:id", async (req, res, next) => {
   const {
     fecha,
 
-    
     provincia,
     poblacion,
     calle,
@@ -118,7 +118,6 @@ router.patch("/:id", async (req, res, next) => {
   //Campos a rellenar al modificar un presupuesto
   if (
     !fecha ||
-    
     !provincia ||
     !poblacion ||
     !calle ||
@@ -137,7 +136,6 @@ router.patch("/:id", async (req, res, next) => {
     const response = await PresupuestoModel.findByIdAndUpdate(id, {
       fecha,
 
-     
       provincia,
       poblacion,
       calle,

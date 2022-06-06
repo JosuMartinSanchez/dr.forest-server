@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const isProfesional = require("../middlewares/isProfesional.js");
+const isAuthenticated = require("../middlewares/isAuthenticated.js");
 const ServicioModel = require("../models/Servicios.model.js");
 
 //! GET "/api/servicios" => Lista todos los servicios disponibles
@@ -14,8 +14,10 @@ router.get("/", async (req, res, next) => {
 });
 
 //! POST "/api/servicios" => Crear servicios
-router.post("/", isProfesional, async (req, res, next) => {
+router.post("/", isAuthenticated, async (req, res, next) => {
+  console.log(req.body);
   const { img, nombre, breveDesc, descripcion, utilidades } = req.body.form;
+  console.log(req.body.form);
   //Campos a rellenar al crear un servicio
   if (!img || !nombre || !breveDesc || !descripcion || !utilidades) {
     res.status(400).json("Todos los campos deben ser rellenados");
@@ -30,6 +32,7 @@ router.post("/", isProfesional, async (req, res, next) => {
       breveDesc,
       descripcion,
       utilidades,
+      idCreador: req.payload._id,
     });
 
     res.json(response);

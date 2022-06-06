@@ -21,6 +21,10 @@ const servicioSchema = new Schema({
     type: String,
     required: true,
   },
+  idCreador: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+  },
 });
 
 const Servicio = model("Servicio", servicioSchema);
