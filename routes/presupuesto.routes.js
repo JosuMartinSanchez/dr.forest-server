@@ -15,7 +15,8 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 });
 
 //! POST "/api/presupuesto" => Crear presupuestos
-router.post("/", isAuthenticated, async (req, res, next) => {
+router.post("/:id", isAuthenticated, async (req, res, next) => {
+  const {id} = req.params
   const {
     fecha,
 
