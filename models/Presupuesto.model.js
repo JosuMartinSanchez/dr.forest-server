@@ -41,7 +41,7 @@ const presupuestoSchema = new Schema({
   servicioId: {
     // Relación con el servicio
     type: Schema.Types.ObjectId,
-    ref: "servicio",
+    ref: "Servicio",
   },
   estado: {
     type: String,
@@ -51,7 +51,7 @@ const presupuestoSchema = new Schema({
   userId: {
     // Relación con el usuario
     type: Schema.Types.ObjectId,
-    ref: "user",
+    ref: "User",
   },
 });
 

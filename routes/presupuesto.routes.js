@@ -7,7 +7,10 @@ const isAuthenticated = require("../middlewares/isAuthenticated.js");
 
 router.get("/", isAuthenticated, async (req, res, next) => {
   try {
-    const response = await PresupuestoModel.findById(req.payload._id);
+    const response = await PresupuestoModel.find({
+      userId: req.payload._id,
+    }).populate("userId");
+    //El populate es de como se llama la propiedad
     res.json(response);
   } catch (error) {
     next(error);
@@ -16,7 +19,7 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 
 //! POST "/api/presupuesto" => Crear presupuestos
 router.post("/:id", isAuthenticated, async (req, res, next) => {
-  const {id} = req.params
+  const { id } = req.params;
   const {
     fecha,
 
@@ -35,20 +38,20 @@ router.post("/:id", isAuthenticated, async (req, res, next) => {
 
   console.log(req.body);
   //Campos a rellenar al crear un presupuesto
-  if (
-    !fecha ||
-    !provincia ||
-    !poblacion ||
-    !calle ||
-    !numero ||
-    !piso ||
-    !observaciones ||
-    !numEmpleados ||
-    !metro2
-  ) {
-    res.status(400).json("Todos los campos deben ser rellenados");
-    return;
-  }
+  // if (
+  //   !fecha ||
+  //   !provincia ||
+  //   !poblacion ||
+  //   !calle ||
+  //   !numero ||
+  //   !piso ||
+  //   !observaciones ||
+  //   !numEmpleados ||
+  //   !metro2
+  // ) {
+  //   res.status(400).json("Todos los campos deben ser rellenados");
+  //   return;
+  // }
   try {
     const response = await PresupuestoModel.create({
       fecha,
