@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const PresupuestoModel = require("../models/Presupuesto.model.js");
-const jwt = require("jsonwebtoken");
 
-//! GET "/api/presupuestos" => Lista todos los presupuestos disponibles
+//! GET "/api/presupuesto" => Lista todos los presupuestos disponibles
 
 router.get("/", async (req, res, next) => {
   try {
@@ -13,8 +12,8 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-//! POST "/api/presupuesto" => Crear presupuestos
-router.post("/", async (req, res, next) => {
+//! POST "/api/presupuesto" => Crear presupuesto
+router.get("/", async (req, res, next) => {
   const {
     fecha,
     direction,
@@ -28,6 +27,7 @@ router.post("/", async (req, res, next) => {
     numEmpleados,
     metro2,
     precio,
+    servicioId,
   } = req.body;
   //Campos a rellenar al crear un presupuesto
   if (
@@ -42,7 +42,8 @@ router.post("/", async (req, res, next) => {
     !observaciones ||
     !numEmpleados ||
     !metro2 ||
-    !precio
+    !precio ||
+    !servicioId
   ) {
     res.status(400).json("Todos los campos deben ser rellenados");
   }
@@ -60,8 +61,8 @@ router.post("/", async (req, res, next) => {
       numEmpleados,
       metro2,
       precio,
+      servicioId,
     });
-    console.log(req.payload);
 
     res.json(response);
   } catch (error) {
@@ -69,7 +70,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-//! GET "/api/presupuestos/:id" => Lista los detalles del presupuestos.
+//! GET "/api/presupuestos/:id" => Lista los detalles del presupuesto.
 
 router.get("/:id", async (req, res, next) => {
   const { id } = req.params;
@@ -81,7 +82,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-//! DEL "/api/presupuestos:id" => Elimina un presupuestos
+//! DEL "/api/presupuestos:id" => Elimina un presupuesto
 router.delete("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -92,7 +93,7 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
-//! PATCH "/api/presupuestos/:id" => Editar el presupuestos
+//! PATCH "/api/presupuestos/:id" => Editar el presupuesto
 router.patch("/:id", async (req, res, next) => {
   const { id } = req.params;
   const {
@@ -128,7 +129,7 @@ router.patch("/:id", async (req, res, next) => {
   ) {
     res.status(400).json("Todos los campos deben ser rellenados");
   }
-  console.log(req.payload);
+
   try {
     const response = await PresupuestoModel.findByIdAndUpdate(id, {
       fecha,
@@ -144,7 +145,6 @@ router.patch("/:id", async (req, res, next) => {
       metro2,
       precio,
       servicioId,
-      userId,
     });
     res.json("El presupuesto ha sido modificado");
   } catch (error) {
