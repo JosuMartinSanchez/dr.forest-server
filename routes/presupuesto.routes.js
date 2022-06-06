@@ -15,11 +15,10 @@ router.get("/", async (req, res, next) => {
 });
 
 //! POST "/api/presupuesto" => Crear presupuestos
-router.post("/", isAuthenticated, async (req, res, next) => {
+router.post("/:id", isAuthenticated, async (req, res, next) => {
+  const {id} = req.params
   const {
-    fecha,
-
-    
+    fecha,    
     provincia,
     poblacion,
     calle,
@@ -52,9 +51,7 @@ router.post("/", isAuthenticated, async (req, res, next) => {
   }
   try {
     const response = await PresupuestoModel.create({
-      fecha,
-
-     
+      fecha,     
       provincia,
       poblacion,
       calle,

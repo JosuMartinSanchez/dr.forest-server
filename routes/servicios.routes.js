@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const isProfesional = require("../middlewares/isProfesional.js");
 const ServicioModel = require("../models/Servicios.model.js");
 
 //! GET "/api/servicios" => Lista todos los servicios disponibles
@@ -13,7 +14,7 @@ router.get("/", async (req, res, next) => {
 });
 
 //! POST "/api/servicios" => Crear servicios
-router.post("/", async (req, res, next) => {
+router.post("/", isProfesional, async (req, res, next) => {
   const { img, nombre, breveDesc, descripcion, utilidades } = req.body.form;
   //Campos a rellenar al crear un servicio
   if (!img || !nombre || !breveDesc || !descripcion || !utilidades) {
