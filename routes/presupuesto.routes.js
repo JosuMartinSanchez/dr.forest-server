@@ -65,9 +65,6 @@ router.post("/", isAuthenticated, async (req, res, next) => {
       servicioId,
     });
 
-    console.log(response);
-    console.log(req.payload._id);
-
     res.json(response);
   } catch (error) {
     next(error);
