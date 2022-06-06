@@ -18,8 +18,8 @@ router.get("/", async (req, res, next) => {
 router.post("/", isAuthenticated, async (req, res, next) => {
   const {
     fecha,
-    direction,
-    pais,
+
+    
     provincia,
     poblacion,
     calle,
@@ -37,8 +37,7 @@ router.post("/", isAuthenticated, async (req, res, next) => {
   //Campos a rellenar al crear un presupuesto
   if (
     !fecha ||
-    !direction ||
-    !pais ||
+    
     !provincia ||
     !poblacion ||
     !calle ||
@@ -54,8 +53,8 @@ router.post("/", isAuthenticated, async (req, res, next) => {
   try {
     const response = await PresupuestoModel.create({
       fecha,
-      direction,
-      pais,
+
+     
       provincia,
       poblacion,
       calle,
@@ -106,8 +105,8 @@ router.patch("/:id", async (req, res, next) => {
   const { id } = req.params;
   const {
     fecha,
-    direction,
-    pais,
+
+    
     provincia,
     poblacion,
     calle,
@@ -122,8 +121,7 @@ router.patch("/:id", async (req, res, next) => {
   //Campos a rellenar al modificar un presupuesto
   if (
     !fecha ||
-    !direction ||
-    !pais ||
+    
     !provincia ||
     !poblacion ||
     !calle ||
@@ -141,8 +139,8 @@ router.patch("/:id", async (req, res, next) => {
   try {
     const response = await PresupuestoModel.findByIdAndUpdate(id, {
       fecha,
-      direction,
-      pais,
+
+     
       provincia,
       poblacion,
       calle,

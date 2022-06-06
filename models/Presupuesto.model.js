@@ -5,15 +5,6 @@ const presupuestoSchema = new Schema({
     type: Date,
     required: true,
   },
-
-  direction: {
-    type: String,
-    required: true,
-  },
-  pais: {
-    type: String,
-    required: true,
-  },
   provincia: {
     type: String,
     required: true,
