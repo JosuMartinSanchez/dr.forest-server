@@ -52,6 +52,11 @@ const presupuestoSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "servicio",
   },
+  estado: {
+    type: String,
+    enum: ["⏳", "✔️", "❌"],
+    default: "⏳",
+  },
   userId: {
     // Relación con el usuario
     type: Schema.Types.ObjectId,
