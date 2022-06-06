@@ -156,34 +156,23 @@ router.post("/login", async (req, res, next) => {
     //*Creamos el Payload que será nuestro req.session y donde tendremos acceso al usuario registrado
 
     //Manda un payload y otro dependiendo si es profesional o no
-    if (foundUser.userType === " profesional") {
-      const payload = {
-        _id: foundUser._id,
-        email: foundUser.email,
-        username: foundUser.username,
-        cp: foundUser.cp,
-        telf: foundUser.telf,
-        userType: foundUser.userType,
-        pais: foundUser.pais,
-        provincia: foundUser.provincia,
-        poblacion: foundUser.poblacion,
-        calle: foundUser.calle,
-        numero: foundUser.numero,
-        piso: foundUser.piso,
-        cif: foundUser.cif,
-        rSocial: foundUser.rSocial,
-      };
-    } else {
-      const payload = {
-        _id: foundUser._id,
-        email: foundUser.email,
-        username: foundUser.username,
-        cp: foundUser.cp,
-        telf: foundUser.telf,
-      };
-    }
 
-    console.log();
+    const payload = {
+      _id: foundUser._id,
+      email: foundUser.email,
+      username: foundUser.username,
+      cp: foundUser.cp,
+      telf: foundUser.telf,
+      userType: foundUser.userType,
+      pais: foundUser.pais,
+      provincia: foundUser.provincia,
+      poblacion: foundUser.poblacion,
+      calle: foundUser.calle,
+      numero: foundUser.numero,
+      piso: foundUser.piso,
+      cif: foundUser.cif,
+      rSocial: foundUser.rSocial,
+    };
 
     // si hubiesen propiedades de isAdmin o isVip se recomienda agregarlas para navegacion de FE
 
