@@ -18,4 +18,12 @@ router.use("/servicios", serviciosRoutes);
 const presupuestoRoutes = require("./presupuesto.routes");
 router.use("/presupuestos", presupuestoRoutes);
 
+
+//*--------------- Rutas Perfil-------------------------
+
+const profileRoutes = require("./profile.routes");
+router.use("/perfil", profileRoutes);
+
+
+
 module.exports = router;
