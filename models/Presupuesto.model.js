@@ -53,6 +53,10 @@ const presupuestoSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  profesionalId: {
+    type: Schema.Types.ObjectId,
+    ref: "Servicio",
+  },
 });
 
 const Presupuesto = model("Presupuesto", presupuestoSchema);
