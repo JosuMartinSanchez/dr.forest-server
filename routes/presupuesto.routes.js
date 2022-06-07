@@ -2,6 +2,7 @@ const router = require("express").Router();
 const PresupuestoModel = require("../models/Presupuesto.model.js");
 const jwt = require("jsonwebtoken");
 const isAuthenticated = require("../middlewares/isAuthenticated.js");
+const ServicioModel = require("../models/Servicios.model.js");
 
 //! GET "/api/presupuesto" => Lista todos los presupuestos disponibles
 
@@ -22,7 +23,6 @@ router.post("/:id", isAuthenticated, async (req, res, next) => {
   const { id } = req.params;
   const {
     fecha,
-
     provincia,
     poblacion,
     calle,
@@ -34,6 +34,7 @@ router.post("/:id", isAuthenticated, async (req, res, next) => {
     precio,
     servicioId,
     userId,
+    profesionalId,
   } = req.body;
 
   console.log(req.body);
@@ -53,9 +54,11 @@ router.post("/:id", isAuthenticated, async (req, res, next) => {
   //   return;
   // }
   try {
+    const response2 = await ServicioModel.findById(id).select("idCreador");
+    const responseIdCreador = response2.idCreador;
+
     const response = await PresupuestoModel.create({
       fecha,
-
       provincia,
       poblacion,
       calle,
@@ -67,6 +70,7 @@ router.post("/:id", isAuthenticated, async (req, res, next) => {
       precio,
       userId: req.payload._id,
       servicioId,
+      profesionalId: responseIdCreador,
     });
 
     res.json(response);
@@ -81,6 +85,7 @@ router.get("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
     const response = await PresupuestoModel.findById(id);
+
     res.json(response);
   } catch (error) {
     next(error);
