@@ -10,7 +10,24 @@ router.get("/", isAuthenticated, async (req, res, next) => {
   try {
     const response = await PresupuestoModel.find({
       userId: req.payload._id,
-    }).populate("userId");
+    })
+      .populate("userId")
+      .populate("servicioId");
+
+    //El populate es de como se llama la propiedad
+    res.json(response);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//! GET "/api/presupuesto/empresa" => Lista todos los presupuestos vinculados a esa empresa
+
+router.get("/empresa", isAuthenticated, async (req, res, next) => {
+  try {
+    const response = await PresupuestoModel.find({
+      profesionalId: req.payload._id,
+    });
     //El populate es de como se llama la propiedad
     res.json(response);
   } catch (error) {
@@ -39,20 +56,26 @@ router.post("/:id", isAuthenticated, async (req, res, next) => {
 
   console.log(req.body);
   //Campos a rellenar al crear un presupuesto
-  // if (
-  //   !fecha ||
-  //   !provincia ||
-  //   !poblacion ||
-  //   !calle ||
-  //   !numero ||
-  //   !piso ||
-  //   !observaciones ||
-  //   !numEmpleados ||
-  //   !metro2
-  // ) {
-  //   res.status(400).json("Todos los campos deben ser rellenados");
-  //   return;
-  // }
+  if (
+    !fecha ||
+    !provincia ||
+    !poblacion ||
+    !calle ||
+    !numero ||
+    !piso ||
+    !observaciones
+  ) {
+    res.status(400).json("Todos los campos deben ser rellenados");
+    return;
+  }
+
+  if (!numEmpleados || !metro2) {
+    res
+      .status(400)
+      .json("El valor de Nº de empleados y Metros cuadrados no puede ser 0");
+    return;
+  }
+
   try {
     const response2 = await ServicioModel.findById(id).select("idCreador");
     const responseIdCreador = response2.idCreador;
