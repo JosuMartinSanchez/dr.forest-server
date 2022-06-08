@@ -2,35 +2,32 @@ const router = require("express").Router();
 
 const UserModel = require("../models/User.model");
 
-const isAuthenticated = require("../middlewares/isAuthenticated")
+const isAuthenticated = require("../middlewares/isAuthenticated");
 // POST "/api/perfil" para cargar perfil
 router.get("/", isAuthenticated, async (req, res, next) => {
   const { _id } = req.payload;
   try {
     const response = await UserModel.findById(_id);
     res.json(response);
+    console.log(response);
   } catch (err) {
     next(err);
   }
 });
 
 // PATCH "/api/perfil" para editar
-router.patch("/editar/:id", isAuthenticated, async (req, res, next) => {
- 
-  const {id} = req.params
-  const { username, email, img } = req.body;
-  // console.log(req.payload._id)
-
-
+router.patch("/editarPerfil", isAuthenticated, async (req, res, next) => {
+  const { username, email } = req.body;
+  const { _id } = req.payload;
+  
   try {
-    const response = await UserModel.findByIdAndUpdate(id, {
+    await UserModel.findByIdAndUpdate(_id, {
       username,
-      email,
-      profilePic: img,
+      email
     });
-    res.json(response);
-  } catch (err) {
-    next(err);
+    res.json("Usuario actualizado correctamente");
+  } catch (error) {
+    next(error);
   }
 });
 
