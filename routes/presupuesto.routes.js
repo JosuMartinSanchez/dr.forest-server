@@ -27,7 +27,9 @@ router.get("/empresa", isAuthenticated, async (req, res, next) => {
   try {
     const response = await PresupuestoModel.find({
       profesionalId: req.payload._id,
-    });
+    })
+      .populate("userId")
+      .populate("servicioId");
     //El populate es de como se llama la propiedad
     res.json(response);
   } catch (error) {
@@ -54,7 +56,6 @@ router.post("/:id", isAuthenticated, async (req, res, next) => {
     profesionalId,
   } = req.body;
 
-  console.log(req.body);
   //Campos a rellenar al crear un presupuesto
   if (
     !fecha ||
@@ -107,7 +108,7 @@ router.post("/:id", isAuthenticated, async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
-    const response = await PresupuestoModel.findById(id);
+    const response = await PresupuestoModel.findById(id).populate("userId");
 
     res.json(response);
   } catch (error) {
@@ -127,11 +128,12 @@ router.delete("/:id", async (req, res, next) => {
 });
 
 //! PATCH "/api/presupuestos/:id" => Editar el presupuesto
-router.patch("/:id", async (req, res, next) => {
+router.patch("/:id", isAuthenticated, async (req, res, next) => {
+  const { userType } = req.payload;
+
   const { id } = req.params;
   const {
     fecha,
-
     provincia,
     poblacion,
     calle,
@@ -142,28 +144,19 @@ router.patch("/:id", async (req, res, next) => {
     metro2,
     precio,
     servicioId,
+    estado,
   } = req.body;
-  //Campos a rellenar al modificar un presupuesto
-  if (
-    !fecha ||
-    !provincia ||
-    !poblacion ||
-    !calle ||
-    !numero ||
-    !piso ||
-    !observaciones ||
-    !numEmpleados ||
-    !metro2 ||
-    !precio ||
-    !servicioId
-  ) {
+  console.log(req.body);
+
+  // Campos a rellenar al modificar un presupuesto
+
+  if (userType === "profesional" && (!estado || !precio)) {
     res.status(400).json("Todos los campos deben ser rellenados");
   }
 
   try {
     const response = await PresupuestoModel.findByIdAndUpdate(id, {
       fecha,
-
       provincia,
       poblacion,
       calle,
@@ -172,9 +165,11 @@ router.patch("/:id", async (req, res, next) => {
       observaciones,
       numEmpleados,
       metro2,
+      estado,
       precio,
       servicioId,
     });
+    console.log(response);
     res.json("El presupuesto ha sido modificado");
   } catch (error) {
     next(error);
