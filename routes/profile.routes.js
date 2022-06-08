@@ -15,17 +15,20 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 });
 
 // PATCH "/api/perfil" para editar
-router.patch("/editar", isAuthenticated, async (req, res, next) => {
-  
+router.patch("/editar/:id", isAuthenticated, async (req, res, next) => {
+ 
+  const {id} = req.params
   const { username, email, img } = req.body;
   // console.log(req.payload._id)
+
+
   try {
-    await UserModel.findByIdAndUpdate(_id, {
+    const response = await UserModel.findByIdAndUpdate(id, {
       username,
       email,
       profilePic: img,
     });
-    res.json("user updated");
+    res.json(response);
   } catch (err) {
     next(err);
   }
