@@ -17,15 +17,42 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 
 // PATCH "/api/perfil" para editar
 router.patch("/editarPerfil", isAuthenticated, async (req, res, next) => {
-  const { username, email } = req.body;
+  const {
+    email,
+    username,
+    telf,
+    cp,
+    pais,
+    provincia,
+    poblacion,
+    calle,
+    numero,
+    piso,
+    cif,
+    rSocial,
+  } = req.body;
   const { _id } = req.payload;
-  
+  console.log(req.body);
   try {
-    await UserModel.findByIdAndUpdate(_id, {
-      username,
-      email
-    });
-    res.json("Usuario actualizado correctamente");
+    await UserModel.findByIdAndUpdate(
+      _id,
+      {
+        email,
+        username,
+        telf,
+        cp,
+        pais,
+        provincia,
+        poblacion,
+        calle,
+        numero,
+        piso,
+        cif,
+        rSocial,
+      },
+      { new: true }
+    ),
+      res.json("Usuario actualizado correctamente");
   } catch (error) {
     next(error);
   }

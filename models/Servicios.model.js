@@ -23,7 +23,7 @@ const servicioSchema = new Schema({
   },
   idCreador: {
     type: Schema.Types.ObjectId,
-    ref: "user",
+    ref: "User",
   },
 });
 

@@ -104,6 +104,7 @@ router.post("/signup", async (req, res, next) => {
       email,
       password: hashPassword,
       username,
+      telf,
       cp,
       userType,
       pais,

@@ -6,7 +6,7 @@ const ServicioModel = require("../models/Servicios.model.js");
 
 router.get("/", async (req, res, next) => {
   try {
-    const response = await ServicioModel.find();
+    const response = await ServicioModel.find().populate("idCreador");
     res.json(response);
   } catch (error) {
     next(error);
