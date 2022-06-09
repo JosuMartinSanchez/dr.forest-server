@@ -105,7 +105,7 @@ router.post("/:id", isAuthenticated, async (req, res, next) => {
 
 //! GET "/api/presupuestos/:id" => Lista los detalles del presupuesto.
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", isAuthenticated, async (req, res, next) => {
   const { id } = req.params;
   try {
     const response = await PresupuestoModel.findById(id).populate("userId");
@@ -117,7 +117,7 @@ router.get("/:id", async (req, res, next) => {
 });
 
 //! DEL "/api/presupuestos:id" => Elimina un presupuesto
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", isAuthenticated, async (req, res, next) => {
   const { id } = req.params;
   try {
     const response = await PresupuestoModel.findByIdAndDelete(id);

@@ -54,7 +54,7 @@ router.get("/:id", async (req, res, next) => {
 });
 
 //! DEL "/api/servicios:id" => Elimina un servicio
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", isAuthenticated, async (req, res, next) => {
   const { id } = req.params;
   try {
     const response = await ServicioModel.findByIdAndDelete(id);
@@ -65,7 +65,7 @@ router.delete("/:id", async (req, res, next) => {
 });
 
 //! PATCH "/api/servicios/:id" => Editar los servicios
-router.patch("/:id", async (req, res, next) => {
+router.patch("/:id", isAuthenticated, async (req, res, next) => {
   const { id } = req.params;
   const { img, nombre, breveDesc, descripcion, utilidades } = req.body;
   //Campos a rellenar al modificigar un servicio
