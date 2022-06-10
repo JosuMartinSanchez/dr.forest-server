@@ -3,6 +3,9 @@ const PresupuestoModel = require("../models/Presupuesto.model.js");
 const jwt = require("jsonwebtoken");
 const isAuthenticated = require("../middlewares/isAuthenticated.js");
 const ServicioModel = require("../models/Servicios.model.js");
+const stripe = require("stripe")(
+  "sk_test_51L90XQHB4uELEWIDMzaQZa7KhawMiphZvfSEW7ZiYM293CkiIlxct3mPG9MXA0qQhqToTmp4mkObaHab3v88poDk00lL2XB5Ml"
+);
 
 //! GET "/api/presupuesto" => Lista todos los presupuestos disponibles
 
@@ -56,16 +59,10 @@ router.post("/:id", isAuthenticated, async (req, res, next) => {
     profesionalId,
   } = req.body;
 
-  //Campos a rellenar al crear un presupuesto
-  if (
-    !fecha ||
-    !provincia ||
-    !poblacion ||
-    !calle ||
-    !numero ||
-    !piso ||
-    !observaciones
-  ) {
+  console.log(req.body);
+
+  // Campos a rellenar al crear un presupuesto
+  if (!provincia || !poblacion || !calle || !numero || !piso) {
     res.status(400).json("Todos los campos deben ser rellenados");
     return;
   }
@@ -174,6 +171,37 @@ router.patch("/:id", isAuthenticated, async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+});
+
+//!-------------------STRIPE-------------------------
+
+const calculateOrderAmount = (items) => {
+  // Replace this constant with a calculation of the order's amount
+  // Calculate the order total on the server to prevent
+  // people from directly manipulating the amount on the client
+  return 1400;
+};
+
+router.post("/create-payment-intent", async (req, res) => {
+  const { items } = req.body;
+  console.log(items);
+
+  try {
+    const response = await PresupuestoModel.findById(items._id);
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: response.precio * 100,
+      currency: "eur",
+      automatic_payment_methods: {
+        enabled: true,
+      },
+    });
+
+    res.send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (error) {}
+
+  // Create a PaymentIntent with the order amount and currency
 });
 
 module.exports = router;
