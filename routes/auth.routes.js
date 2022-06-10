@@ -21,6 +21,7 @@ router.post("/signup", async (req, res, next) => {
     piso,
     cif,
     rSocial,
+    telf
   } = req.body;
 
   console.log(req.body);
